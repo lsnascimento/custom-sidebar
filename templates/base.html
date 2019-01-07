@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:500" rel="stylesheet">
+
+    <title>Custom Sidebar</title>
+</head>
+
+<body>
+    <nav class="nav-header">
+
+    </nav>
+
+    <div class="flex">
+        <div>
+            <aside>
+                <nav>
+                    <ul>
+                        {% for item in items %}
+                        <li class="{{ item.class }}">
+                            {% if 'submenu' in item and item.class == 'active' %}
+                            <a href="{{ item.url }}">{{ item.name }}</a>
+                            <ul class="submenu">
+                                {% for sub_item in item.submenu %}
+                                <li class="{{ sub_item.class }}">
+                                    <a href="{{ sub_item.url }}">{{ sub_item.name }}</a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            {% else %}
+                            <a href="{{ item.url }}">{{ item.name }}</a>
+                            {% endif %}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </nav>
+            </aside>
+        </div>
+
+        <div class="content">
+            {% block content %} {% endblock %}
+        </div>
+    </div>
+</body>
+
+</html>
